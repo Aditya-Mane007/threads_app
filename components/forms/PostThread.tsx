@@ -17,12 +17,20 @@ import * as z from "zod"
 import { usePathname, useRouter } from "next/navigation"
 import { ThreadValidtion } from "@/lib/validations/thread"
 import { createThread } from "@/lib/actions/thread.actions"
+import { useOrganization } from "@clerk/nextjs"
 
-function PostThread({ userId }: { userId: string }) {
+interface Props {
+  userId: string
+}
+
+function PostThread({ userId }: Props) {
   const router = useRouter()
   const pathname = usePathname()
+  const { organization } = useOrganization()
 
-  const form = useForm({
+  console.log(organization?.id)
+
+  const form = useForm<z.infer<typeof ThreadValidtion>>({
     resolver: zodResolver(ThreadValidtion),
     defaultValues: {
       thread: "",
@@ -34,7 +42,7 @@ function PostThread({ userId }: { userId: string }) {
     await createThread({
       text: values.thread,
       author: userId,
-      communityId: null,
+      communityId: organization ? organization.id : null,
       path: pathname
     })
 
@@ -74,6 +82,6 @@ function PostThread({ userId }: { userId: string }) {
 }
 
 export default PostThread
-function createThred() {
-  throw new Error("Function not implemented.")
-}
+// function createThred() {
+//   throw new Error("Function not implemented.")
+// }

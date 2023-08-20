@@ -11,7 +11,7 @@ export default async function Home() {
   // const result = await fetchThreads(1, 30, user.id)
   const result = await fetchThreads(1, 30)
   //
-  console.log(result)
+  console.log(result?.posts)
   return (
     <>
       <h1 className="head-text text-left">Home</h1>

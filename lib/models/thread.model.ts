@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose"
+import mongoose from "mongoose"
 
 const threadSchems = new mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const threadSchems = new mongoose.Schema(
       ref: "User",
       required: true
     },
-    communtiy: { type: mongoose.Schema.Types.ObjectId, ref: "Community" },
+    community: { type: mongoose.Schema.Types.ObjectId, ref: "Community" },
     parentId: {
       type: String
     },
